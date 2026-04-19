@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APEX Short URLs</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .container { max-width: 720px; }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="container bg-white p-8 rounded-lg shadow-xl text-center">
+        <h1 class="text-4xl font-bold mb-4 text-gray-800">🔗 APEX Short URLs</h1>
+        <p class="text-lg text-gray-600 mb-6">Instant, professional links. No accounts, ever.</p>
+
+        <form id="shortenForm" class="mb-6">
+            <input type="url" id="longUrl" placeholder="Paste your long URL here" required
+                   class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4">
+            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md text-lg font-semibold hover:bg-blue-700 transition duration-300">
+                Shorten URL
+            </button>
+        </form>
+
+        <div id="result" class="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-md hidden">
+            <p class="text-gray-700">Your short URL:</p>
+            <a id="shortLink" href="#" target="_blank" class="text-blue-600 font-medium text-xl hover:underline break-all"></a>
+            <button onclick="copyShortLink()" class="ml-4 px-3 py-1 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition duration-200">Copy</button>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold mb-3 text-gray-800">⚡ Go Pro for $9.99 (one-time)</h2>
+            <p class="text-md text-gray-700 mb-4">Custom domains, basic analytics, and more. Instant access.</p>
+            <button id="proButton" class="bg-green-600 text-white px-8 py-4 rounded-md text-xl font-bold hover:bg-green-700 transition duration-300">
+                Get Pro for $9.99
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Placeholder for actual API calls
+        const shortenForm = document.getElementById('shortenForm');
+        const longUrlInput = document.getElementById('longUrl');
+        const resultDiv = document.getElementById('result');
+        const shortLinkAnchor = document.getElementById('shortLink');
+        const proButton = document.getElementById('proButton');
+
+        shortenForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const longUrl = longUrlInput.value;
+            // In a real app, this would be an API call to your backend
+            const shortUrl = 'https://apex.link/' + Math.random().toString(36).substring(2, 8); // Mock short URL
+            shortLinkAnchor.href = shortUrl;
+            shortLinkAnchor.textContent = shortUrl;
+            resultDiv.classList.remove('hidden');
+        });
+
+        function copyShortLink() {
+            navigator.clipboard.writeText(shortLinkAnchor.href).then(() => {
+                alert('Copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        proButton.addEventListener('click', () => {
+            // In a real app, this would redirect to Stripe Checkout
+            alert('Redirecting to Stripe Checkout for Pro purchase! (Mock)');
+            window.location.href = 'https://buy.stripe.com/test_session_id'; // Placeholder for Stripe Checkout URL
+        });
+    </script>
+</body>
+</html>
